@@ -2,7 +2,8 @@
 
 # --- !Ups
 
-CREATE TABLE feeds (
+CREATE TABLE feed (
+    id     serial,
     name    varchar(100),
     url    varchar(500)
 ); 

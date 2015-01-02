@@ -15,26 +15,32 @@ object Application extends Controller {
 
   def index = DBAction { implicit rs =>
 
-    val feeds = TableQuery[Feeds]
+    val feeds = TableQuery[Feed]
     Ok(views.html.index(feeds.list))
   }
 
-  case class FeedForm(name: Option[String], url: Option[String])
+  case class FeedForm(id: Option[Int], name: Option[String], url: Option[String])
 
-  val Feeds = TableQuery[Feeds]
+  val Feeds = TableQuery[Feed]
 
   val feedForm = Form(
     mapping(
+      "id" -> optional(number),
       "name" -> optional(text),
       "url" -> optional(text)
-    )(FeedsRow.apply)(FeedsRow.unapply)
+    )(FeedForm.apply)(FeedForm.unapply)
   )
 
   def insert = DBAction { implicit rs =>
-    val feed = feedForm.bindFromRequest.get
-    Feeds.insert(feed)
 
-    Redirect(routes.Application.index)
+    feedForm.bindFromRequest.fold(
+      error => BadRequest(views.html.index(Nil)),
+      form  => {
+        val user = FeedRow(0, form.name, form.url)
+        Feed.insert(user)
+        Redirect(routes.Application.index)
+      }
+    )
   }
 
 
