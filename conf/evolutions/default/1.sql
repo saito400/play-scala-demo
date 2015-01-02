@@ -3,10 +3,9 @@
 # --- !Ups
 
 CREATE TABLE feeds (
-    id     integer,
+    id     SERIAL,
     name    varchar(100),
-    url    varchar(500),
-    PRIMARY KEY(id)
+    url    varchar(500)
 ); 
 
 # --- !Downs
