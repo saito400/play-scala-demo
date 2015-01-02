@@ -17,23 +17,18 @@ trait Tables {
   lazy val ddl = Feeds.ddl ++ PlayEvolutions.ddl
   
   /** Entity class storing rows of table Feeds
-   *  @param id Database column id DBType(serial), AutoInc
    *  @param name Database column name DBType(varchar), Length(100,true), Default(None)
    *  @param url Database column url DBType(varchar), Length(500,true), Default(None) */
-  case class FeedsRow(id: Int, name: Option[String] = None, url: Option[String] = None)
+  case class FeedsRow(name: Option[String] = None, url: Option[String] = None)
   /** GetResult implicit for fetching FeedsRow objects using plain SQL queries */
-  implicit def GetResultFeedsRow(implicit e0: GR[Int], e1: GR[Option[String]]): GR[FeedsRow] = GR{
+  implicit def GetResultFeedsRow(implicit e0: GR[Option[String]]): GR[FeedsRow] = GR{
     prs => import prs._
-    FeedsRow.tupled((<<[Int], <<?[String], <<?[String]))
+    FeedsRow.tupled((<<?[String], <<?[String]))
   }
   /** Table description of table feeds. Objects of this class serve as prototypes for rows in queries. */
   class Feeds(_tableTag: Tag) extends Table[FeedsRow](_tableTag, "feeds") {
-    def * = (id, name, url) <> (FeedsRow.tupled, FeedsRow.unapply)
-    /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (id.?, name, url).shaped.<>({r=>import r._; _1.map(_=> FeedsRow.tupled((_1.get, _2, _3)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    def * = (name, url) <> (FeedsRow.tupled, FeedsRow.unapply)
     
-    /** Database column id DBType(serial), AutoInc */
-    val id: Column[Int] = column[Int]("id", O.AutoInc)
     /** Database column name DBType(varchar), Length(100,true), Default(None) */
     val name: Column[Option[String]] = column[Option[String]]("name", O.Length(100,varying=true), O.Default(None))
     /** Database column url DBType(varchar), Length(500,true), Default(None) */

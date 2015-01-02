@@ -1,4 +1,4 @@
-@import models.Tables._
+@import models.Tables._  
 @(feeds: List[FeedsRow])
 
 @main("Feed list") {
@@ -12,9 +12,10 @@
   <h2>Feed list:</h2>
   <table>
     <tr><th>Name</th><th>URL</th></tr>
-    @for(f <- feeds){ 
+    @for(f <- feeds){
     <tr><td>@f.name</td><td>@f.url</td></tr>
     }
   </table>
-  
+
 }
+
