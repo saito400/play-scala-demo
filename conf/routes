@@ -11,5 +11,7 @@ POST    /feed/insert                     controllers.FeedController.insert
 
 GET     /feed/edit                  controllers.FeedController.edit(id: Option[Int] ?= None)
 
+POST    /feed/update                controllers.FeedController.update
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

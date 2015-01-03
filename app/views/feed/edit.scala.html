@@ -2,18 +2,19 @@
 
 @import helper._
 
-@import models.Tables._  
-
-
 @main("Feed list") {
 
-  <form action="/feed/insert" method="POST">
-    <input name="name" type="text" placeholder="name"/><br />
-    <input name="url" type="text" placeholder="url"/>
+  @form(feedForm("id").value.map(x => routes.FeedController.update).getOrElse(routes.FeedController.insert)) {
+  
+    @inputText(feedForm("name"), '_label -> "name")
+    @inputText(feedForm("url"), '_label -> "url")
+    @feedForm("id").value.map { value =>
+      <input type="hidden" name="id" value="@value" />
+    }
+
     <input type="submit"/>
-  </form>
-
-
+  
+  }
 
 }
 

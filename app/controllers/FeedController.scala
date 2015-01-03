@@ -44,18 +44,26 @@ object FeedController extends Controller {
   }
 
   def edit(id: Option[Int]) = DBAction { implicit rs =>
-
     val form = if(id.isDefined) {
-
       val feed = Feeds.filter(t => t.id is id.get.bind).first
-
       feedForm.fill(FeedForm(Some(feed.id), feed.name, feed.url))
     } else {
-
       feedForm
     }
-
     Ok(views.html.feed.edit(form))
   }
+
+  def update = DBAction.transaction { implicit rs =>
+    feedForm.bindFromRequest.fold(
+      error => BadRequest(views.html.feed.edit(error)),
+      form  => {
+        val feed = FeedRow(form.id.get, form.name, form.url)
+        Feed.filter(t => t.id is feed.id.bind).update(feed)
+        Redirect(routes.FeedController.index)
+      }
+    )
+  }
+
+
 
 }
