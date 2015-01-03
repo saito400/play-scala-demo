@@ -1,0 +1,19 @@
+@(feedForm: Form[controllers.FeedController.FeedForm])
+
+@import helper._
+
+@import models.Tables._  
+
+
+@main("Feed list") {
+
+  <form action="/feed/insert" method="POST">
+    <input name="name" type="text" placeholder="name"/><br />
+    <input name="url" type="text" placeholder="url"/>
+    <input type="submit"/>
+  </form>
+
+
+
+}
+

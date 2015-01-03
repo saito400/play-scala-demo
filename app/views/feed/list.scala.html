@@ -1,0 +1,19 @@
+@import models.Tables._  
+@(feeds: List[FeedRow])
+
+@main("Feed list") {
+
+  <div>
+    <a href="@routes.FeedController.edit()">新規作成</a>
+  </div>
+
+  <h2>Feed list:</h2>
+  <table>
+    <tr><th>Name</th><th>URL</th></tr>
+    @for(f <- feeds){
+    <tr><td>@f.name</td><td>@f.url</td></tr>
+    }
+  </table>
+
+}
+

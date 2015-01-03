@@ -1,21 +1,8 @@
-@import models.Tables._  
-@(feeds: List[FeedRow])
+@(message: String)
 
-@main("Feed list") {
+@main("Welcome to Play") {
 
-  <form action="/insert" method="POST">
-    <input name="name" type="text" placeholder="name"/><br />
-    <input name="url" type="text" placeholder="url"/>
-    <input type="submit"/>
-  </form>
-
-  <h2>Feed list:</h2>
-  <table>
-    <tr><th>Name</th><th>URL</th></tr>
-    @for(f <- feeds){
-    <tr><td>@f.name</td><td>@f.url</td></tr>
-    }
-  </table>
+    @play20.welcome(message)
 
 }
 

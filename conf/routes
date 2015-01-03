@@ -5,7 +5,11 @@
 # Home page
 GET     /                           controllers.Application.index
 
-POST    /insert                     controllers.Application.insert
+GET     /feed/list                  controllers.FeedController.index
+
+POST    /feed/insert                     controllers.FeedController.insert
+
+GET     /feed/edit                  controllers.FeedController.edit(id: Option[Int] ?= None)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
