@@ -15,8 +15,8 @@ object Application extends Controller {
 
   def index = DBAction { implicit rs =>
 
-    val feeds = TableQuery[Feed]
-    Ok(views.html.index(feeds.list))
+    val feeds = Feeds.sortBy(t => t.id).list
+    Ok(views.html.index(feeds))
   }
 
   case class FeedForm(id: Option[Int], name: Option[String], url: Option[String])
