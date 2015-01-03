@@ -13,12 +13,16 @@
       <th>id</th>
       <th>Name</th>
       <th>URL</th>
+      <th>&nbsp;</th>
     </tr>
     @for(f <- feeds){
     <tr>
       <td><a href="@routes.FeedController.edit(Some(f.id))">@f.id</a></td>
       <td>@f.name</td>
       <td>@f.url</td>
+      <td>@helper.form(routes.FeedController.delete(f.id)){
+        <input type="submit" value="削除"/>
+      }
     </tr>
     }
   </table>

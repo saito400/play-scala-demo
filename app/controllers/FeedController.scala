@@ -6,10 +6,13 @@ import play.api._
 import play.api.Play.current
 import play.api.data.Forms._
 import play.api.db.slick._
-import play.api.db.slick.Config.driver.simple._
 import play.api.db.slick.DBAction
 import play.api.mvc._
 import play.api.data._
+
+//import play.api.db.slick.Config.driver.simple._  following Driver needed to be used instead of this to Delete records
+import scala.slick.driver.PostgresDriver.simple._
+
 
 object FeedController extends Controller {
 
@@ -64,6 +67,11 @@ object FeedController extends Controller {
     )
   }
 
+  def delete(id: Int) = DBAction { implicit rs =>
+    //Feed.delete(id) it does not work
+    Feed.filter(t => t.id is id.bind).delete
+    Redirect(routes.FeedController.index)
+  }
 
 
 }
