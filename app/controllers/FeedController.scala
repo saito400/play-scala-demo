@@ -48,7 +48,7 @@ object FeedController extends Controller {
 
   def edit(id: Option[Int]) = DBAction { implicit rs =>
     val form = if(id.isDefined) {
-      val feed = Feeds.filter(t => t.id is id.get.bind).first
+      val feed = Feeds.filter(t => t.id === id.get.bind).first
       feedForm.fill(FeedForm(Some(feed.id), feed.name, feed.url))
     } else {
       feedForm
@@ -61,7 +61,7 @@ object FeedController extends Controller {
       error => BadRequest(views.html.feed.edit(error)),
       form  => {
         val feed = FeedRow(form.id.get, form.name, form.url)
-        Feed.filter(t => t.id is feed.id.bind).update(feed)
+        Feed.filter(t => t.id === feed.id.bind).update(feed)
         Redirect(routes.FeedController.index)
       }
     )
@@ -69,7 +69,7 @@ object FeedController extends Controller {
 
   def delete(id: Int) = DBAction { implicit rs =>
     //Feed.delete(id) it does not work
-    Feed.filter(t => t.id is id.bind).delete
+    Feed.filter(t => t.id === id.bind).delete
     Redirect(routes.FeedController.index)
   }
 
