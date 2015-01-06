@@ -56,7 +56,7 @@ object FeedController extends Controller {
     Ok(views.html.feed.edit(form))
   }
 
-  def update = DBAction.transaction { implicit rs =>
+  def update = DBAction { implicit rs =>
     feedForm.bindFromRequest.fold(
       error => BadRequest(views.html.feed.edit(error)),
       form  => {
