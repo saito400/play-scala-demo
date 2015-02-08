@@ -10,4 +10,4 @@ CREATE TABLE feed (
 
 # --- !Downs
 
-DROP TABLE feeds;
+DROP TABLE feed;
