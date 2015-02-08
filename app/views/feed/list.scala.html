@@ -3,29 +3,37 @@
 
 @main("Feed list") {
 
-  <div>
-    <a href="@routes.FeedController.edit()">新規作成</a>
-  </div>
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4">
+            <a href="@routes.FeedController.edit()">新規作成</a>
+          </div>
+        </div>
 
-  <h2>Feed list:</h2>
-  <table>
-    <tr>
-      <th>id</th>
-      <th>Name</th>
-      <th>URL</th>
-      <th>&nbsp;</th>
-    </tr>
-    @for(f <- feeds){
-    <tr>
-      <td><a href="@routes.FeedController.edit(Some(f.id))">@f.id</a></td>
-      <td>@f.name</td>
-      <td>@f.url</td>
-      <td>@helper.form(routes.FeedController.delete(f.id)){
-        <input type="submit" value="削除"/>
-      }
-    </tr>
-    }
-  </table>
+      <h2>Feed list:</h2>
+        <div class="row">
+            <div class="col-md-6">
+              <table>
+                <tr>
+                  <th>id</th>
+                  <th>Name</th>
+                  <th>URL</th>
+                  <th>&nbsp;</th>
+                </tr>
+                @for(f <- feeds){
+                <tr>
+                  <td><a href="@routes.FeedController.edit(Some(f.id))">@f.id</a></td>
+                  <td>@f.name</td>
+                  <td>@f.url</td>
+                  <td>@helper.form(routes.FeedController.delete(f.id)){
+                    <input type="submit" value="削除"/>
+                  }
+                </tr>
+                }
+              </table>
+            </div>
+        </div>
+    </div>
 
 }
 
