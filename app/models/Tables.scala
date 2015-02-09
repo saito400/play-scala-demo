@@ -14,7 +14,7 @@ trait Tables {
   import scala.slick.jdbc.{GetResult => GR}
   
   /** DDL for all tables. Call .create to execute. */
-  lazy val ddl = Feed.ddl ++ PlayEvolutions.ddl
+  lazy val ddl = Feed.ddl ++ Page.ddl ++ PlayEvolutions.ddl
   
   /** Entity class storing rows of table Feed
    *  @param id Database column id DBType(serial), AutoInc
@@ -41,6 +41,38 @@ trait Tables {
   }
   /** Collection-like TableQuery object for table Feed */
   lazy val Feed = new TableQuery(tag => new Feed(tag))
+  
+  /** Entity class storing rows of table Page
+   *  @param id Database column id DBType(serial), AutoInc
+   *  @param url Database column url DBType(varchar), Length(500,true), Default(None)
+   *  @param feedId Database column feed_id DBType(serial), AutoInc
+   *  @param read Database column read DBType(bool), Default(None)
+   *  @param save Database column save DBType(bool), Default(None) */
+  case class PageRow(id: Int, url: Option[String] = None, feedId: Int, read: Option[Boolean] = None, save: Option[Boolean] = None)
+  /** GetResult implicit for fetching PageRow objects using plain SQL queries */
+  implicit def GetResultPageRow(implicit e0: GR[Int], e1: GR[Option[String]], e2: GR[Option[Boolean]]): GR[PageRow] = GR{
+    prs => import prs._
+    PageRow.tupled((<<[Int], <<?[String], <<[Int], <<?[Boolean], <<?[Boolean]))
+  }
+  /** Table description of table page. Objects of this class serve as prototypes for rows in queries. */
+  class Page(_tableTag: Tag) extends Table[PageRow](_tableTag, "page") {
+    def * = (id, url, feedId, read, save) <> (PageRow.tupled, PageRow.unapply)
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (id.?, url, feedId.?, read, save).shaped.<>({r=>import r._; _1.map(_=> PageRow.tupled((_1.get, _2, _3.get, _4, _5)))}, (_:Any) =>  throw new Exception("Inserting into ? projection not supported."))
+    
+    /** Database column id DBType(serial), AutoInc */
+    val id: Column[Int] = column[Int]("id", O.AutoInc)
+    /** Database column url DBType(varchar), Length(500,true), Default(None) */
+    val url: Column[Option[String]] = column[Option[String]]("url", O.Length(500,varying=true), O.Default(None))
+    /** Database column feed_id DBType(serial), AutoInc */
+    val feedId: Column[Int] = column[Int]("feed_id", O.AutoInc)
+    /** Database column read DBType(bool), Default(None) */
+    val read: Column[Option[Boolean]] = column[Option[Boolean]]("read", O.Default(None))
+    /** Database column save DBType(bool), Default(None) */
+    val save: Column[Option[Boolean]] = column[Option[Boolean]]("save", O.Default(None))
+  }
+  /** Collection-like TableQuery object for table Page */
+  lazy val Page = new TableQuery(tag => new Page(tag))
   
   /** Entity class storing rows of table PlayEvolutions
    *  @param id Database column id DBType(int4), PrimaryKey
