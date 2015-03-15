@@ -22,11 +22,13 @@ object JsonController extends Controller {
   case class TestData(id: Int, name: String)
   implicit val testDataFormat = Json.format[TestData]
 
+  case class Comment(author: String, text: String)
+  implicit val commentFormat = Json.format[Comment]
+
   def index = DBAction { implicit rs =>
-    val list = Seq(TestData(0,"data0"),TestData(1,"data1"))
+    val list = Seq(Comment("author1","test1"), Comment("author2","text2"))
     val json = Json.toJson(list)
     Ok(json)
-
   }
 
 
