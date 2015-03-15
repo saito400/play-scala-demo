@@ -31,6 +31,23 @@ object JsonController extends Controller {
     Ok(json)
   }
 
+  def insert = DBAction { implicit rs =>
+    //TODO insert and get data
+    val list = Seq(Comment("author1","test1"), Comment("author2","text2"))
+    val json = Json.toJson(list)
+    Ok(json)
+
+//    feedForm.bindFromRequest.fold(
+//      error => BadRequest(views.html.feed.list(Nil)),
+//      form  => {
+//        val user = FeedRow(0, form.name, form.url)
+//        Feed.insert(user)
+//        Redirect(routes.FeedController.index)
+//      }
+//    )
+  }
+
+
 
 //  def index = DBAction { implicit rs =>
 //
