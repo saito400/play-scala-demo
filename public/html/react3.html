@@ -37,17 +37,30 @@
        ]
      }
 
-
      var converter = new Showdown.converter();
-     var Comment = React.createClass({
+
+     var Parameter = React.createClass({
        render: function() {
-         var rawMarkup = converter.makeHtml(this.props.children.toString());
          return (
-           <div className="comment">
-             <h2 className="commentAuthor">
-               {this.props.author}
-             </h2>
-             <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+           <div className="parameter">
+             <h1>Parameter</h1>
+             {this.props.data}
+           </div>
+         );
+       }
+     });
+
+     var ParameterList = React.createClass({
+       render: function() {
+         var parameterNodes = this.props.data.map(function (param) {
+           return (
+             <Parameter data={param.value} />
+           );
+         });
+         return (
+           <div className="parameterList">
+             <h1>Parameter list</h1>
+             {parameterNodes}
            </div>
          );
        }
@@ -58,7 +71,8 @@
          return (
            <div className="header">
              <h1>Header</h1>
-             {this.props.data}
+             {this.props.data.value}
+             <ParameterList data={this.props.data.values} />
            </div>
          );
        }
@@ -66,13 +80,11 @@
 
      var HeaderList = React.createClass({
        render: function() {
-
          var headerNodes = this.props.data.headers.map(function (header) {
            return (
-             <Header data={header.value} />
+             <Header data={header} />
            );
          });
-
          return (
            <div className="headerList">
              <h1>Header list</h1>
