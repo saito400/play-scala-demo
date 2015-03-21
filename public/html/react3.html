@@ -72,18 +72,6 @@
      });
 
 
-     var CommentForm = React.createClass({
-       render: function() {
-         return (
-           <form className="commentForm">
-             <input type="text" placeholder="Your name" ref="author" />
-             <input type="text" placeholder="Say something..." ref="text" />
-             <input type="submit" value="Post" />
-           </form>
-         );
-       }
-     });
-
      var CommentBox = React.createClass({
        loadCommentsFromServer: function() {
          $.ajax({
@@ -105,23 +93,22 @@
          setInterval(this.loadCommentsFromServer, this.props.pollInterval);
        },
        render: function() {
+         
+         alert(JSON.stringify(this.props.data));
+         
          return (
            <div className="commentBox">
              <h1>Comments</h1>
              <CommentList data={this.props.data} />
-             <CommentForm />
            </div>
          );
        }
      });
 
-
      React.render(
        <CommentBox data={data} />,
        document.getElementById('content')
      );
-
-
 
     </script>
   </body>
