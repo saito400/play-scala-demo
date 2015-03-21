@@ -52,6 +52,23 @@ object JsonController extends Controller {
                     "headerId": 2
                 }
             ]
+        },
+        {
+            "id": 3,
+            "value": "value3",
+            "versionId": 2,
+            "values": [
+                {
+                    "id": 4,
+                    "value": "param value3",
+                    "headerId": 3
+                },
+                {
+                    "id": 5,
+                    "value": "param value3b",
+                    "headerId": 3
+                }
+            ]
         }
     ]
     }"""
