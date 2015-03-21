@@ -110,6 +110,7 @@
          return (
            <div className="header">
              <h1>Header</h1>
+             {this.props.data}
            </div>
          );
        }
@@ -117,6 +118,13 @@
 
      var HeaderList = React.createClass({
        render: function() {
+
+         var headerNodes = this.props.data.headers.map(function (header) {
+           return (
+             <Header data={header.value} />
+           );
+         });
+
          return (
            <div className="header">
              <h1>HeaderList</h1>
@@ -128,12 +136,19 @@
 
      var Envelope = React.createClass({
        render: function() {
-         return (
-           <div className="envelope">
-             <h1>Envelope</h1>
-             <HeaderList data={this.props.data} />
-           </div>
-         );
+         if(this.props.data.length == 0){
+           return (
+             <div className="envelope">
+             </div>
+           );
+         } else {
+           return (
+             <div className="envelope">
+               <h1>Envelope</h1>
+               <HeaderList data={this.props.data} />
+             </div>
+           );
+         }
        }
      });
 
@@ -157,7 +172,6 @@
           this.loadCommentsFromServer();
         },
         render: function() {
-//         alert(JSON.stringify(this.state.data));
          return (
            <Envelope data={this.state.data} />
          );
