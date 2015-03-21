@@ -117,6 +117,16 @@
 
      });
 
+     var Envelope = React.createClass({
+       render: function() {
+         return (
+           <div className="envelope">
+             <h1>Envelope</h1>
+           </div>
+         );
+       }
+     });
+
      var DataBox = React.createClass({
         loadCommentsFromServer: function() {
           $.ajax({
@@ -139,8 +149,7 @@
         render: function() {
          alert(JSON.stringify(this.state.data));
          return (
-           <Header data={this.state.data} />
-
+           <Envelope data={this.state.data} />
          );
        }
      });
