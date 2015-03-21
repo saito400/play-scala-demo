@@ -107,14 +107,23 @@
 
      var Header = React.createClass({
        render: function() {
-         
          return (
            <div className="header">
              <h1>Header</h1>
            </div>
          );
        }
+     });
 
+     var HeaderList = React.createClass({
+       render: function() {
+         return (
+           <div className="header">
+             <h1>HeaderList</h1>
+             <Header />
+           </div>
+         );
+       }
      });
 
      var Envelope = React.createClass({
@@ -122,7 +131,7 @@
          return (
            <div className="envelope">
              <h1>Envelope</h1>
-             <Header data={this.props.data} />
+             <HeaderList data={this.props.data} />
            </div>
          );
        }
