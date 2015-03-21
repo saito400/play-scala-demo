@@ -22,3 +22,5 @@ GET     /site/list                  controllers.SiteController.index
 
 GET     /json/list                  controllers.JsonController.index
 
+GET     /json/list2                  controllers.JsonController.index2
+

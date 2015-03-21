@@ -31,6 +31,35 @@ object JsonController extends Controller {
     Ok(json)
   }
 
+  def index2 = DBAction { implicit rs =>
+    val data = """{
+    "id": 2,
+    "version": 2,
+    "headers": [
+        {
+            "id": 2,
+            "value": "value2",
+            "parentId": 2,
+            "parameters": [
+                {
+                    "id": 2,
+                    "value": "param value2",
+                    "parentId": 2
+                },
+                {
+                    "id": 3,
+                    "value": "param value2b",
+                    "parentId": 2
+                }
+            ]
+        }
+    ]
+    }"""
+
+    val json = Json.parse(data)
+    Ok(json)
+  }
+
   def insert = DBAction { implicit rs =>
     //TODO insert and get data
     val list = Seq(Comment("author1","test1"), Comment("author2","text2"))
