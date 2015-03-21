@@ -122,6 +122,7 @@
          return (
            <div className="envelope">
              <h1>Envelope</h1>
+             <Header data={this.props.data} />
            </div>
          );
        }
@@ -147,7 +148,7 @@
           this.loadCommentsFromServer();
         },
         render: function() {
-         alert(JSON.stringify(this.state.data));
+//         alert(JSON.stringify(this.state.data));
          return (
            <Envelope data={this.state.data} />
          );
