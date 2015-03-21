@@ -105,6 +105,18 @@
        }
      });
 
+     var Header = React.createClass({
+       render: function() {
+         
+         return (
+           <div className="header">
+             <h1>Header</h1>
+           </div>
+         );
+       }
+
+     });
+
      var DataBox = React.createClass({
         loadCommentsFromServer: function() {
           $.ajax({
@@ -127,7 +139,8 @@
         render: function() {
          alert(JSON.stringify(this.state.data));
          return (
-           <h1>Header</h1>
+           <Header data={this.state.data} />
+
          );
        }
      });
