@@ -39,17 +39,17 @@ object JsonController extends Controller {
         {
             "id": 2,
             "value": "value2",
-            "parentId": 2,
-            "parameters": [
+            "versionId": 2,
+            "values": [
                 {
                     "id": 2,
                     "value": "param value2",
-                    "parentId": 2
+                    "headerId": 2
                 },
                 {
                     "id": 3,
                     "value": "param value2b",
-                    "parentId": 2
+                    "headerId": 2
                 }
             ]
         }
