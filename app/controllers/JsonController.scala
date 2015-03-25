@@ -86,4 +86,24 @@ object JsonController extends Controller {
   }
 
 
+
+  def index3 = DBAction { implicit rs =>
+
+  val v = Seq((1, 1, 1), (1, 1, 2), (1, 1, 3), (1, 2, 1), (1, 2, 3), (2, 1, 1), (2, 1, 2))
+  val re = v.groupBy(_._1)
+    .map { x =>
+      (x._1, x._2.map {
+        y =>
+          (
+            y._2, y._3
+          )
+      }.groupBy(_._1).map { z => (z._1, z._2.map(zz => zz._2)) })
+    }
+//    val json = Json.toJson(re)
+//    val json = Json.parse(re)
+    val list = Seq(Comment("author1","test1"), Comment("author2","text2"))
+    val json = Json.toJson(list)
+    Ok(json)
+  }
+
 }
