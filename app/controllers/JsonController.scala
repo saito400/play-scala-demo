@@ -117,5 +117,13 @@ object JsonController extends Controller {
     def writes(tuple: Tuple3[A, B, C]) = JsArray(Seq(aWrites.writes(tuple._1), bWrites.writes(tuple._2), cWrites.writes(tuple._3)))
   }
 
+  def index4 = DBAction { implicit rs =>
+
+    val v = Seq((1, 1, 1), (1, 1, 2), (1, 1, 3), (1, 2, 1), (1, 2, 3), (2, 1, 1), (2, 1, 2))
+
+    val json = Json.toJson(v)
+    Ok(json)
+  }
+
 
 }

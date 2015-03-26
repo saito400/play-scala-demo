@@ -24,3 +24,7 @@ GET     /json/list                  controllers.JsonController.index
 
 GET     /json/list2                  controllers.JsonController.index2
 
+GET     /json/list3                  controllers.JsonController.index3
+
+GET     /json/list4                  controllers.JsonController.index4
+
